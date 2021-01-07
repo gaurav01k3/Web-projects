@@ -1,9 +1,9 @@
-console.log('This is notes app');
+// console.log('This is notes app');
 showNotes(); // jo notes pehle se h unhe show kra dega
 
 //If user adds a note , add it to the local storage
 let addBtn = document.getElementById('addBtn');
-addBtn.addEventListener("click", function () {
+addBtn.addEventListener("click", function() {
     let addTxt = document.getElementById("addTxt");
     let addTitleTxt = document.getElementById("addTitleTxt");
     let badge = document.getElementsByClassName("badge");
@@ -40,16 +40,15 @@ function showNotes() {
     let notes = localStorage.getItem("notes");
     if (notes == null) {
         Wobj = [];
-    }
-    else {
+    } else {
         Wobj = JSON.parse(notes); // parse kraya kyunki local storage mein string mein store hote h aur hame iterate krane ke liye object chahiye
     }
     // <p class="card-text">${element}</p>
     // ek html obj banaya ohir insert krdenge use
     let html = "";
-    Wobj.forEach(function (element, index) {
+    Wobj.forEach(function(element, index) {
         if (element["flag"] == 1) {
-            console.log("guuu");
+            // console.log("guuu");
             html += `<div class=" shadow p-3 mb-5 bg-white rounded noteCard card mx-2 my-2" style="width: 18rem;">
             <div class="card-body">
                 <p style="color:blue;" class="card-text"><b>${element.Title}</b>
@@ -57,17 +56,16 @@ function showNotes() {
                 <h5 class="card-title">Note ${index + 1}
                  </h5>
                 <p class="card-text">${element.Note}</p>
-                <button id="${index}"onclick="confirmDelete(this.id)" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Delete Note</button>  
+                <button id="${index}"onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button>  
             </div>
             </div> `;
-        }
-        else {
+        } else {
             html += `<div class="shadow p-3 mb-5 bg-white rounded noteCard card mx-2 my-2" style="width: 18rem;">
             <div class="card-body">
                 <p style="color:blue;" class="card-text"><b>${element.Title}</b></p>
                 <h5 class="card-title">Note ${index + 1}</h5>
                 <p class="card-text">${element.Note}</p>
-                <button id="${index}"onclick="confirmDelete(this.id)" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Delete Note</button>  
+                <button id="${index}"onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button>  
 
             </div>
             </div> `;
@@ -86,28 +84,19 @@ function showNotes() {
 
 
 
-function confirmDelete(sendID) {
-    let yes = document.getElementById('yes');
-    // let no = document.getElementById('no');
-    yes.addEventListener('click', () => {
-        deleteNote(sendID);
-    });
-}
+
 //Function to delete a node
 function deleteNote(index) {
     // console.log(`i'am deleting the node`,index);
-
-
     let notes = localStorage.getItem("notes");
     if (notes == null) {
         Wobj = [];
-    }
-    else {
+    } else {
         Wobj = JSON.parse(notes);
     }
     // The splice() method adds/removes items to/from an array, and returns the removed item(s). Note: This method changes the original array
     Wobj.splice(index, 1); // splice function ki madad se delete kraya 
-    console.log(Wobj);
+    // console.log("delete", index);
     localStorage.setItem("notes", JSON.stringify(Wobj)); // phir naye notesObj ko daal diya usnme
     showNotes();
     // same key name mein write kroge to overwrite ho jayga
@@ -116,24 +105,25 @@ function deleteNote(index) {
 
 // Search Query Lagayi 
 let search = document.getElementById('searchTxt');
-search.addEventListener("input", function () { // input event mtlb kuch bhi type krunga to input event fire hoga
+search.addEventListener("input", function() { // input event mtlb kuch bhi type krunga to input event fire hoga
 
     let inputVal = search.value.toLowerCase();
-    console.log('Input event fired!', inputVal);
-    let noteCards = document.getElementsByClassName('noteCard');// note card namak class wale sare elelment a jaygnge isme
-    Array.from(noteCards).forEach(function (element) {
+    // console.log('Input event fired!', inputVal);
+    let noteCards = document.getElementsByClassName('noteCard'); // note card namak class wale sare elelment a jaygnge isme
+    Array.from(noteCards).forEach(function(element) {
         let cardTxt = element.getElementsByTagName("p")[0].innerText; //doubt
-        if (cardTxt.includes(inputVal)) {
+        let cardTxt2 = element.getElementsByTagName("p")[1].innerText; //doubt
+        let cardCheckTxt = cardTxt.toLowerCase();
+        let cardCheckTxt2 = cardTxt2.toLowerCase();
+        if (cardCheckTxt.includes(inputVal) || cardCheckTxt2.includes(inputVal)) {
             element.style.display = "block";
-        }
-        else {
+        } else {
             element.style.display = "none";
         }
-        console.log(cardTxt);
+        // console.log(cardTxt);
     })
 })
 
-// HomeWork
 
 // /*
 // Further Features:
@@ -141,4 +131,11 @@ search.addEventListener("input", function () { // input event mtlb kuch bhi type
 // 2. Mark a note as Important
 // 3. Separate notes by user
 // 4. Sync and host to web server 
-// */ 
+// */
+
+// function confirmDelete(sendID) {
+//     let yes = document.getElementById('yes');
+//     yes.addEventListener('click', () => {
+//         deleteNote(sendID);
+//     });
+// }

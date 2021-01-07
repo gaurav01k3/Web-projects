@@ -1,6 +1,7 @@
-body{
+body {
     background: #c5c5c5;
 }
+
 .customSwitch1 {
     display: inline;
 }
@@ -12,22 +13,31 @@ body{
 #buttonSection {
     display: flex;
 }
-h1{
+
+h1 {
     text-align: center;
     font-family: cursive;
 }
-.custom-control-label{
+
+.custom-control-label {
     font-size: large;
     font-weight: bold;
     font-family: sans-serif;
 }
-.noteTitle{
+
+.noteTitle {
     font-weight: bold;
     font-family: monospace;
     font-size: xx-large;
 }
-.card-title{
+
+.card-title {
     font-weight: bold;
     font-family: monospace;
     font-size: xx-large;
+}
+
+#notes {
+    display: flex;
+    justify-content: center;
 }
